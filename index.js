@@ -68,6 +68,34 @@ app.delete('/api/persons/:id', (req, res) => {
 
 
 app.post('/api/persons', (req, res) => {
+    //Check if name already exists in phonebook
+    let exists = false;
+
+    Object.keys(persons).forEach((person) => {
+        if (persons[person].name === req.body.name) {
+            exists = true;
+        };
+    })
+
+    //Check if request contains valid information
+    if (!req.body.name) {
+        return res.status(400).json({
+            error: 'missing name'
+        });
+    }
+
+    else if (!req.body.number) {
+        return res.status(400).json({
+            error: 'missing number'
+        });
+    }
+
+    else if (exists) {
+        return res.status(409).json({
+            error: 'name already exists'
+        });
+    }
+    
     const person = req.body;
     const id = generateID();
     person.id = id;
