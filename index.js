@@ -3,8 +3,10 @@ const express = require('express');
 const morgan = require('morgan');
 const app = express();
 
-app.use(express.json())
-app.use(morgan('tiny'))
+morgan.token('body', (req) => JSON.stringify(req.body));
+
+app.use(express.json());
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'));
 
 let persons = [
     {
@@ -32,7 +34,7 @@ let persons = [
 
 const generateID = () => {
     return Math.floor(Math.random() * 10000);
-}
+};
 
 
 app.get('/api/persons', (req, res) => {
@@ -49,7 +51,7 @@ app.get('/api/persons/:id', (req, res) => {
     else {
         res.status(404).end();
     }
-})
+});
 
 
 app.get('/info', (req, res) => {
@@ -58,7 +60,7 @@ app.get('/info', (req, res) => {
         `<div>Phonebook has info for ${persons.length} people</div>
         <div>${date}</div>`
     );
-})
+});
 
 
 app.delete('/api/persons/:id', (req, res) => {
@@ -66,7 +68,7 @@ app.delete('/api/persons/:id', (req, res) => {
     persons = persons.filter(p => p.id !== id);
   
     res.status(204).end();
-  })
+  });
 
 
 app.post('/api/persons', (req, res) => {
@@ -103,11 +105,11 @@ app.post('/api/persons', (req, res) => {
     person.id = id;
     persons = persons.concat(person);
     res.json(person);
-})
+});
 
 
 const PORT = 3001;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
-})
+});
 
