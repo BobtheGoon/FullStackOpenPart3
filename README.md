@@ -1,1 +1,1 @@
-https://wispy-wind-2619.fly.dev/api/persons
+https://wispy-wind-2619.fly.dev
