@@ -32,9 +32,8 @@ app.get('/api/persons/:id', (req, res) => {
     console.log(id)
 
     Person.findById(id).then(person => {
-        const foundPerson = person
     
-        if (foundPerson) {
+        if (person) {
             res.json(person);
             }
         else {
@@ -59,9 +58,10 @@ app.get('/info', (req, res) => {
 
 app.delete('/api/persons/:id', (req, res) => {
     const id = req.params.id;
-    // persons = persons.filter(p => p.id !== id);
-  
-    // res.status(204).end();
+    Person.findByIdAndRemove(id)
+        .then(result => {
+            res.status(204).end()
+        });
   });
 
 
