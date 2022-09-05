@@ -1,7 +1,7 @@
-POST https://wispy-wind-2619.fly.dev/api/persons
+POST http://localhost:3001/api/persons
 Content-Type: application/json
 
 {
-    "name": "Heikki Palmu",
-    "number": "040-1235533"
+    "name": "Heikki Kalmu",
+    "number": "0404041241"
 }
