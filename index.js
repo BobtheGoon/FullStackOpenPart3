@@ -52,32 +52,17 @@ app.get('/info', (req, res) => {
 
 
 app.post('/api/persons', (req, res, next) => {
-    //Check if name already exists in phonebook
-    // let exists = false;
-
-    // Object.keys(persons).forEach((person) => {
-    //     if (persons[person].name === req.body.name) {
-    //         exists = true;
-    //     };
-    // })
-    //if (exists) {
-    //     return res.status(409).json({
-    //         error: 'name already exists'
-    //     });
-    // }
-
-    //Check if request contains valid information
     if (!req.body.name) {
         return res.status(400).json({
             error: 'missing name'
         });
-    }
+    };
 
     if (!req.body.number) {
         return res.status(400).json({
             error: 'missing number'
         });
-    }
+    };
 
     const person = new Person({
         name: req.body.name,
@@ -127,7 +112,11 @@ const errorHandler = (error, req, res, next) => {
 
     else if (error.name === 'TypeError') {
         return res.status(400).send({error: 'person already removed'})
-        };
+        }
+
+    else if (error.name === 'Validation error') {
+        return res.status(400).json({error: error.message})
+        }
 
     next(error);
     }
