@@ -1,6 +1,6 @@
-# fly.toml file generated for fragrant-frost-827 on 2022-09-05T22:09:03+03:00
+# fly.toml file generated for fullstackbob on 2022-09-07T21:52:32+03:00
 
-app = "fragrant-frost-827"
+app = "fullstackbob"
 kill_signal = "SIGINT"
 kill_timeout = 5
 processes = []
